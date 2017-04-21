@@ -10,6 +10,7 @@ from google.appengine.ext import db
 
 
 # Jinja configuration
+# All templates to be fetched from dir ' templates' & HTML escape = True
 
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir),
@@ -28,6 +29,7 @@ def render_str(template, **params):
 def users_key(group='default'):
     return db.Key.from_path('users', group)
 
+# Store blog key to Google Data that defines a parent attribute
 def blog_key(name='default'):
     return db.Key.from_path('blogs', name)
 

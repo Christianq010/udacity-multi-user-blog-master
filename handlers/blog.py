@@ -3,15 +3,19 @@ import webapp2
 from helpers import *
 from models.user import User
 
+# Steve's Standard Convenience Functions
 class BlogHandler(webapp2.RequestHandler):
 
+    # 'write' turns self.response to a convenient function
     def write(self, *a, **kw):
         self.response.out.write(*a, **kw)
 
+    # Call out template
     def render_str(self, template, **params):
         params['user'] = self.user
         return render_str(template, **params)
 
+    # Call write and render_str to print out the template
     def render(self, template, **kw):
         self.write(self.render_str(template, **kw))
 

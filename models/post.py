@@ -1,7 +1,9 @@
 from google.appengine.ext import db
 from helpers import *
 
+# Defines our Post Entry / Post Class
 class Post(db.Model):
+    # properties of our blog entry
     subject = db.StringProperty(required=True)
     content = db.TextProperty(required=True)
     user_id = db.IntegerProperty(required=True)
@@ -9,10 +11,12 @@ class Post(db.Model):
     last_modified = db.DateTimeProperty(auto_now=True)
     likes = db.IntegerProperty(default=0)
 
+    # render the users blog entry
     def render(self, current_user_id):
         key = db.Key.from_path('User', int(self.user_id), parent=users_key())
         user = db.get(key)
 
+        # render new lines with a br
         self._render_text = self.content.replace('\n', '<br>')
         return render_str("post.html", p=self, current_user_id=current_user_id, author=user.name)
 
