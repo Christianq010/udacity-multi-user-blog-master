@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+  
+	{% if user %}
+		{{post.render(user.key().id()) | safe}}
+	{% else %}
+		{{ post.render(None) | safe }}
+	{% endif %}
+
+	{% if user and user.key().id() == post.user_id %}
+		<a href="/{{post.key().id()}}/delete/{{post.user_id}}">
+			<div class="post__delete">
+				<img src="/static/images/rubbish-bin.svg" alt="" class="delete__icon">
+			</div>
+		</a>
+		<a href="/{{post.key().id()}}/edit">
+			<div class="post__edit">
+				<img src="/static/images/edit.svg" alt="" class="edit__icon">
+			</div>
+		</a>
+	{% elif user %}
+<!-- 		<a href="/{{post.key().id()}}/like">
+			<button class="button-outline">Like</button>
+		</a> -->
+		<a href="/{{post.key().id()}}/unlike">
+			<div class="post__dislike">
+				<img src="/static/images/dislike.svg" alt="" class="dislike__icon">
+			</div>
+		</a>
+	{% endif %}
+
+	{% if user %}
+		<a href="/{{post.key().id()}}/addcomment/{{user.key().id()}}">
+			<div class="post__comment">
+				<img src="/static/images/comment-bubble.svg" alt="" class="comment__icon">
+			</div>
+		</a>
+	{% endif %}
+
+	<div class="comments">
+		{% for c in comments %}
+			<div class="comment">
+			    <div class="comment__meta">
+			        <div class="meta__author">
+			            <img class="meta__author__image" src="/static/images/compose.svg" alt="">
+			        </div>
+			        <div class="meta__comment">
+			            <div class="meta__comment__author">{{c.user_name}}</div>
+			            <div class="meta__comment__date">{{c.created.strftime("%b %d, %Y")}}</div>
+			        </div>
+			    </div>
+			    <p class="comment__content">
+			        {{ c.content }}
+			    </p>
+			    <div class="clearfix">
+				    {% if user and user.key().id() == c.user_id %}
+				    	<a href="/{{post.key().id()}}/{{c.user_id}}/deletecomment/{{ c.key().id() }}">
+				    		<div class="comment__delete">
+				    			<img src="/static/images/rubbish-bin.svg" alt="" class="delete__icon">
+				    		</div>
+				    	</a>
+				    	<a href="/{{post.key().id()}}/{{c.user_id}}/editcomment/{{ c.key().id() }}">
+				    		<div class="comment__edit">
+				    			<img src="/static/images/edit.svg" alt="" class="edit__icon">
+				    		</div>
+				    	</a>
+				    {% endif %}
+			    </div>
+			</div>
+		{% endfor %}
+	</div>
+
+	<i>{{error}}</i>
+  
+{% endblock %}

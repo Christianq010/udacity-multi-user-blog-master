@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>FSND Blog</title>
+
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css">
+	<link rel="stylesheet" href="/static/milligram.min.css">
+	<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+	<div class="wrapper">
+		<nav class="navigation">
+			<div class="container">
+				<a href="/" class="navigation__title">
+					<!-- <img class="title__image" src="/static/images/compose.svg" alt=""> -->
+					{% if user %}
+						<h1 class="title__text">Welcome, {{user.name}}!</h1>
+					{% else %}
+						<h1 class="title__text">Udacity Blog</h1>
+					{% endif %}
+				</a>
+				<ul class="navigation__list">
+					{% if user %}
+						<li class="list__item">
+							<a href="/newpost" class="list__item__link">Write a story</a>
+						</li>
+						<li class="list__item">
+							<a href="/logout" class="list__item__link">Logout</a>
+						</li>
+					{% else %}
+						<li class="list__item">
+							<a href="/signup" class="list__item__link">Signup</a>
+						</li>
+						<li class="list__item">
+							<a href="/login" class="list__item__link">Login</a>
+						</li>
+					{% endif %}
+				</ul>
+			</div>
+		</nav>
+		<section class="content">
+			<div class="container">
+				{{access_error}}
+				{% block content %}
+				{% endblock %}
+			</div>
+		</section>
+		<footer class="footer">
+			<div class="container">
+				<small>Icons made by <a href="http://www.flaticon.com/authors/madebyoliver" title="Madebyoliver">Madebyoliver</a>, <a href="http://www.flaticon.com/authors/bryn-taylor" title="Bryn Taylor">Bryn Taylor</a>, <a href="http://www.flaticon.com/authors/gregor-cresnar" title="Gregor Cresnar">Gregor Cresnar</a> and <a href="http://www.flaticon.com/authors/icon-works" title="Icon Works">Icon Works</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+				</small>
+		</footer>
+	</div>
+</body>
+</html>
