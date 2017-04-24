@@ -23,5 +23,6 @@ Or use the live app here:
 * 0.1.0 - Initial release
 
 ## License
+* Original project Forked from https://github.com/rrjoson/udacity-multi-user-blog
 
 MIT © [Ricardo Raphael Joson](http://rrjoson.com)
